@@ -20,7 +20,9 @@ func main() {
 	raylib.InitWindow(800, 600, "raylib in golang!")
 	raylib.SetTargetFPS(60)
 
-	testGame := game.Game{}
+	testGame := game.Game{
+		ClearColor: raylib.BLUE,
+	}
 
 	var ball = myBall{}
 	ball.Pos = game.Vec{X: 400, Y: 300, Z: 0}
@@ -47,7 +49,7 @@ func main() {
 	})
 	testGame.AddNode(ball.N())
 
-	testGame.StartLoop()
+	testGame.Start()
 
 	raylib.CloseWindow()
 

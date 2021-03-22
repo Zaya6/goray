@@ -1,10 +1,5 @@
 package game
 
-type Point struct {
-	node
-	Pos Vec
-}
-
 type Vec struct {
 	X float32
 	Y float32

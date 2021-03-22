@@ -4,6 +4,7 @@ import "fmt"
 
 // Node is a type of object that represents logic, interactivity, or visuals in a game
 type Node interface {
+	Init()
 	Update(delta float32)
 	Draw()
 	AddNode(nNode *Node)
@@ -15,19 +16,32 @@ type Node interface {
 	Print()
 	AddUpdate(f func())
 	AddDraw(f func())
+	AddInit(f func())
 }
 
 // node is the underlying structure of every other node
 type node struct {
+	Pos        Vec
 	parent     *Node
 	children   []*Node
 	updateList []func()
 	drawList   []func()
+	initList   []func()
 }
 
 // test prints stuff
 func (n *node) Print() { // TODO : print the type
 	fmt.Println("testers")
+}
+
+// Init an update function to update the node
+func (n *node) Init() {
+	for _, child := range n.children {
+		(*child).Init()
+	}
+	for _, f := range n.initList {
+		f()
+	}
 }
 
 // Update an update function to update the node
@@ -101,4 +115,9 @@ func (n *node) AddUpdate(f func()) {
 // AddDraw adds an anonymous function to the update loop
 func (n *node) AddDraw(f func()) {
 	n.drawList = append(n.drawList, f)
+}
+
+// AddDraw adds an anonymous function to the update loop
+func (n *node) AddInit(f func()) {
+	n.initList = append(n.initList, f)
 }

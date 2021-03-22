@@ -32,3 +32,11 @@ func WindowShouldClose() bool {
 		return false
 	}
 }
+
+func IsWindowReady() bool {
+	if C.IsWindowReady() {
+		return true
+	} else {
+		return false
+	}
+}

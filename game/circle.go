@@ -1,6 +1,6 @@
 package game
 
 type Circle struct {
-	Point
+	node
 	Radius float32
 }
